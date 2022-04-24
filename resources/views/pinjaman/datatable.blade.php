@@ -20,28 +20,31 @@
         </div>
       </div>
       <!-- /.box-header -->
-      <div class="box-body">
-        <table class="table table-striped table-bordered table-hover" id="{{ $idDatatables }}" width="100%">   
-            <thead>
-              <tr>
-                <th class="no-sort">No</th>
-                <th>ID Pinjaman</th>
-                <th>Tanggal Pinjaman</th>
-                <th>Nama Debitur</th>
-                <th>Jaminan</th>
-                <th>Jumlah Pinjaman</th>
-                <th>Pekerjaan</th>
-                <th>Jenis Pinjaman</th>
-                <th>Pendapatan (bln)</th>
-                <th>Riwayat Meminjam</th>
-                <th>Jangka Waktu</th>
-                <th class="no-sort">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-          </tbody>
-          </table>
+      <div class="table-responsive">
+        <div class="box-body">
+          <table class="table table-striped table-bordered table-hover" id="{{ $idDatatables }}" width="100%">   
+              <thead>
+                <tr>
+                  <th class="no-sort">No</th>
+                  <th>ID Pinjaman</th>
+                  <th>Tanggal Pinjaman</th>
+                  <th>Kode</th>
+                  <th>Nama Debitur</th>
+                  <th>Jaminan</th>
+                  <th>Jumlah Pinjaman</th>
+                  <th>Pekerjaan</th>
+                  <th>Jenis Pinjaman</th>
+                  <th>Pendapatan (bln)</th>
+                  <th>Riwayat Meminjam</th>
+                  <th>Jangka Waktu</th>
+                  <th class="no-sort">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+            </tbody>
+            </table>
+        </div>
       </div>
     </div>
 
@@ -91,6 +94,12 @@
                               render: function ( val, type, row ){
                                   return moment(val).format('DD/MM/YYYY')
                               }
+                          },
+                          { 
+                              data: "kode_alternatif", 
+                              render: function ( val, type, row ){
+                                  return val
+                                }
                           },
                           { 
                               data: "nama_debitur", 

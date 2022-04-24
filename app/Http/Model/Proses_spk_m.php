@@ -7,43 +7,34 @@ use DB;
 
 class Proses_spk_m extends Model
 {
-	protected $table = 'tb_alternatif';
+	protected $table = 'tb_pinjaman';
 	protected $index_key = 'id';
-	protected $index_key2 = 'kode_alternatif';
+	protected $index_key2 = 'kode_pinjaman';
     public $timestamps  = false;
 
 	public $rules;
 
     public function __construct()
 	{
-        $this->rules = [
-            'insert' => [
-                'kode_alternatif' => "required|unique:$this->table",
-				'id_pinjaman' => "required|unique:$this->table",
-            ],
-			'update' => [
-				'id_pinjaman' => 'required',
-            ],
-        ];
+ 
 	}
 
     function get_all()
     {
 		$query = DB::table("{$this->table} as a")
-				->join('tb_pinjaman as b','a.id_pinjaman','=','b.id')
+				->join('tb_alternatif as b','a.id_alternatif','=','b.id')
 				->join('tb_debitur as c','b.id_debitur','=','c.id')
-				->join('tb_sub_kriteria as d','b.jaminan','=','d.id')
-				->join('tb_sub_kriteria as e','b.jumlah_pinjaman','=','e.id')
-				->join('tb_sub_kriteria as f','b.pekerjaan','=','f.id')
-				->join('tb_sub_kriteria as g','b.jenis_pinjaman','=','g.id')
-				->join('tb_sub_kriteria as h','b.pendapatan_perbulan','=','h.id')
-				->join('tb_sub_kriteria as i','b.riwayat_meminjam','=','i.id')
-				->join('tb_sub_kriteria as j','b.jangka_waktu','=','j.id')
+				->join('tb_sub_kriteria as d','a.jaminan','=','d.id')
+				->join('tb_sub_kriteria as e','a.jumlah_pinjaman','=','e.id')
+				->join('tb_sub_kriteria as f','a.pekerjaan','=','f.id')
+				->join('tb_sub_kriteria as g','a.jenis_pinjaman','=','g.id')
+				->join('tb_sub_kriteria as h','a.pendapatan_perbulan','=','h.id')
+				->join('tb_sub_kriteria as i','a.riwayat_meminjam','=','i.id')
+				->join('tb_sub_kriteria as j','a.jangka_waktu','=','j.id')
 				->select(
 					'a.*',
-					'b.id as pinjaman_id',
-					'b.id_pinjaman',
-					'b.id_debitur',
+					'a.id as pinjaman_id',
+					'b.kode_alternatif',
 					'c.nama_debitur',
 					'c.alamat_debitur',
 					'c.telepon',

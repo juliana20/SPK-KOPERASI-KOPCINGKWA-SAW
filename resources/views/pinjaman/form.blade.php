@@ -11,7 +11,7 @@
     <div class="col-lg-9">
       <div class="input-group data_collect_wrapper">
         <input type="text" name="nama_debitur" id="nama_debitur" class="form-control" placeholder="Nama Debitur" value="{{ @$item->nama_debitur }}" required="" readonly>
-        <input type="hidden" name="f[id_debitur]" id="id_debitur" class="form-control" placeholder="ID Debitur" value="{{ @$item->id_debitur }}" required="" readonly>
+        <input type="hidden" name="f[id_alternatif]" id="id_alternatif" class="form-control" placeholder="ID Alternatif" value="{{ @$item->id_alternatif }}" required="" readonly>
         <div class="input-group-btn">
           <a href="javascript:;" id="lookup_debitur" class="btn btn-info btn-flat data_collect_btn"><i class="fa fa-search"></i> Cari</a>
         </div>
@@ -115,21 +115,21 @@
     mask_number.init()
 
     $('#lookup_debitur').dataCollect({
-        ajaxUrl: "{{ url('debitur/datatables') }}",
+        ajaxUrl: "{{ url('pinjaman/lookup_alternatif') }}",
         modalSize : 'modal-lg',
         modalTitle : 'DAFTAR PILIHAN NASABAH',
         modalTxtSelect : 'Pilih Nasabah',
         dtOrdering : true,
         dtOrder: [],
-        dtThead:['ID Debitur','Nama Debitur','Telepon','Alamat'],
+        dtThead:['Kode Alternatif','ID Debitur','Nama Debitur','Alamat'],
         dtColumns: [
-            {data: "id_debitur"}, 
+            {data: "kode_alternatif"}, 
+            {data: "kode_debitur"}, 
             {data: "nama_debitur"}, 
-            {data: "telepon"}, 
             {data: "alamat_debitur"}, 
         ],
         onSelected: function(data, _this){	
-          $('#id_debitur').val(data.id);
+          $('#id_alternatif').val(data.id);
           $('#nama_debitur').val(data.nama_debitur);
           $('#alamat_debitur').val(data.alamat_debitur); 
           return true;

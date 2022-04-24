@@ -207,4 +207,10 @@ class PinjamanController extends Controller
         return Datatables::of($data)->make(true);
     }
 
+    public function datatables_lookup_alternatif()
+    {
+        $data = $this->model->get_all_lookup_alternatif();
+        return Datatables::of($data)->make(true);
+    }
+
 }

@@ -70,6 +70,8 @@ Route::group(['middleware' => ['admin']], function () {
 		Route::match(array('GET', 'POST'),'/create','PinjamanController@create');
 		Route::match(array('GET', 'POST'),'/edit/{id}','PinjamanController@edit');
 		Route::match(array('GET', 'POST'),'/view/{id}','PinjamanController@view');
+		Route::match(array('GET', 'POST'),'/lookup_alternatif','PinjamanController@datatables_lookup_alternatif');
+		
 	});
 	#PROSES SPK
 	Route::prefix('proses-spk')->group(function() {

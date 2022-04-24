@@ -3,17 +3,17 @@
   <div class="form-group">
     <label class="col-lg-3 control-label">Kode Alternatif *</label>
     <div class="col-lg-9">
-      <input type="text" class="form-control" name="f[kode_alternatif]" id="kode_alternatif" value="{{ @$item->kode_alternatif }}" placeholder="Kode Alternatif" required="">
+      <input type="text" class="form-control" name="f[kode_alternatif]" id="kode_alternatif" value="{{ @$item->kode_alternatif }}" placeholder="Kode Alternatif" required="" readonly>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-lg-3 control-label">Data Pengajuan *</label>
+    <label class="col-lg-3 control-label">Debitur *</label>
     <div class="col-lg-9">
       <div class="input-group data_collect_wrapper">
         <input type="text" name="nama_debitur" id="nama_debitur" class="form-control" placeholder="Nama Debitur" value="{{ @$item->nama_debitur }}" required="" readonly>
-        <input type="hidden" name="f[id_pinjaman]" id="id_pinjaman" class="form-control" placeholder="ID Pinjaman" value="{{ @$item->pinjaman_id }}" required="" readonly>
+        <input type="hidden" name="f[id_debitur]" id="id_debitur" class="form-control" placeholder="ID Debitur" value="{{ @$item->id_debitur }}" required="" readonly>
         <div class="input-group-btn">
-          <a href="javascript:;" id="lookup_pinjaman" class="btn btn-info btn-flat data_collect_btn"><i class="fa fa-search"></i> Cari</a>
+          <a href="javascript:;" id="lookup_debitur" class="btn btn-info btn-flat data_collect_btn"><i class="fa fa-search"></i> Cari</a>
         </div>
       </div>
     </div>
@@ -31,21 +31,21 @@
 	$( document ).ready(function(e) {
     mask_number.init()
 
-    $('#lookup_pinjaman').dataCollect({
-        ajaxUrl: "{{ url('pinjaman/datatables') }}",
+    $('#lookup_debitur').dataCollect({
+        ajaxUrl: "{{ url('debitur/datatables') }}",
         modalSize : 'modal-lg',
         modalTitle : 'DAFTAR PILIHAN NASABAH',
         modalTxtSelect : 'Pilih Nasabah',
         dtOrdering : true,
         dtOrder: [],
-        dtThead:['ID Pinjaman','Tanggal Pinjaman','Nama Debitur'],
+        dtThead:['ID Debitur','Nama Debitur','Alamat'],
         dtColumns: [
-            {data: "id_pinjaman"}, 
-            {data: "tanggal_pinjaman"}, 
+            {data: "id_debitur"}, 
             {data: "nama_debitur"}, 
+            {data: "alamat_debitur"}, 
         ],
         onSelected: function(data, _this){	
-          $('#id_pinjaman').val(data.id);
+          $('#id_debitur').val(data.id);
           $('#nama_debitur').val(data.nama_debitur);
           return true;
         }

@@ -26,7 +26,6 @@
               <tr>
                 <th class="no-sort">No</th>
                 <th>Kode Alternatif</th>
-                <th>ID Pinjaman</th>
                 <th>Nama Debitur</th>
                 <th class="no-sort">Aksi</th>
               </tr>
@@ -78,12 +77,6 @@
                               render: function ( val, type, row ){
                                   return val
                                 }
-                          },
-                          { 
-                              data: "id_pinjaman", 
-                              render: function ( val, type, row ){
-                                  return val
-                              }
                           },
                           { 
                               data: "nama_debitur", 

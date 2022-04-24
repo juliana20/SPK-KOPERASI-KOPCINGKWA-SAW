@@ -32,8 +32,8 @@
               <li class="{{ Request::is('sub-kriteria') ? 'active':null}}"><a href="{{ url('sub-kriteria') }}"><i class="fa fa-file-text-o"></i> Sub Kriteria</a></li>
             </ul>
           </li>
-          <li class="{{ Request::is('pinjaman') ? 'active':null}}"><a href="{{ url('pinjaman') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Pinjaman</span></a></li>
           <li class="{{ Request::is('alternatif') ? 'active':null}}"><a href="{{ url('alternatif') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Alternatif</span></a></li>
+          <li class="{{ Request::is('pinjaman') ? 'active':null}}"><a href="{{ url('pinjaman') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Pinjaman</span></a></li>
           <li class="{{ Request::is('proses-spk') ? 'active':null}}"><a href="{{ url('proses-spk') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Proses SPK</span></a></li>
            {{-- <li class="{{ Request::is('jurnal') ? 'active':null}}"><a href="{{ url('jurnal') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Jurnal</span></a></li> --}}
           <?php /* <li class="treeview {{ Request::is('laporan/pembayaran') ? 'active':null}} {{ Request::is('laporan/rekapitulasi') ? 'active':null}} 

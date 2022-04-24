@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Model\Alternatif_m;
 use App\Http\Model\Debitur_m;
 use Illuminate\Http\Request;
-use App\Http\Model\Pinjaman_m;
 use Validator;
 use DataTables;
 use Illuminate\Validation\Rule;
@@ -15,11 +14,11 @@ use Response;
 class AlternatifController extends Controller
 {
     protected $model;
-    protected $model_pinjaman;
-    public function __construct(Alternatif_m $model, Pinjaman_m $model_pinjaman)
+    protected $model_debitur;
+    public function __construct(Alternatif_m $model, Debitur_m $model_debitur)
     {
         $this->model = $model;
-        $this->model_pinjaman = $model_pinjaman;
+        $this->model_debitur = $model_debitur;
         $this->nameroutes = 'alternatif';
     }
     /**
@@ -45,15 +44,15 @@ class AlternatifController extends Controller
     public function create(Request $request)
     {
         $item = [
-            'kode_alternatif'  => null,
-            'id_pinjaman' => null,
+            'kode_alternatif'  => $this->model->gen_code('A'),
+            'id_debitur' => null,
         ];
         $data = array(
             'item'                  => (object) $item,
             'submit_url'            => url()->current(),
             'is_edit'               => FALSE,
             'nameroutes'            => $this->nameroutes,
-            'pinjaman'               => $this->model_pinjaman::get(),
+            'debitur'               => $this->model_debitur::get(),
         );
         //jika form sumbit
         if($request->post())
@@ -121,11 +120,11 @@ class AlternatifController extends Controller
     {
         $get_data = $this->model->get_one($id);
         $data = [
-            'item'                      => $get_data,
-            'is_edit'                   => TRUE,
-            'submit_url'                => url()->current(),
-            'nameroutes'                => $this->nameroutes,
-            'pinjaman'                  => $this->model_pinjaman::get(),
+            'item'         => $get_data,
+            'is_edit'      => TRUE,
+            'submit_url'   => url()->current(),
+            'nameroutes'   => $this->nameroutes,
+            'debitur'      => $this->model_debitur::get()
         ];
 
         //jika form sumbit
@@ -135,7 +134,7 @@ class AlternatifController extends Controller
            $header = $request->input('f');
            //validasi dari model
            $validator = Validator::make( $header, [
-                'id_pinjaman' => [Rule::unique('tb_alternatif')->ignore($get_data->pinjaman_id, 'id_pinjaman')],
+                'id_debitur' => [Rule::unique('tb_alternatif')->ignore($get_data->id_debitur, 'id_debitur')],
                 'kode_alternatif' => [Rule::unique('tb_alternatif')->ignore($get_data->kode_alternatif, 'kode_alternatif')],
             ]);
            if ($validator->fails()) {

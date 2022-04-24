@@ -40,7 +40,7 @@ class ProsesSpkController extends Controller
         return view('proses_spk.datatable',$data);
     }
 
-    public function create(Request $request)
+    public function proses(Request $request)
     {
         $item = [
             'kode_alternatif'  => null,

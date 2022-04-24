@@ -27,10 +27,26 @@ class Pinjaman_m extends Model
         ];
 	}
 
+	function get_all_lookup_alternatif()
+	{
+		$query = DB::table('tb_alternatif as a')
+				->join('tb_debitur as b','a.id_debitur','=','b.id')
+				->select(
+					'a.*',
+					'b.id_debitur as kode_debitur',
+					'b.nama_debitur',
+					'b.alamat_debitur'
+				)
+				->get();
+
+				return $query;
+	}
+
     function get_all()
     {
 		$query = DB::table("{$this->table} as a")
-				->join('tb_debitur as b','a.id_debitur','=','b.id')
+				->join('tb_alternatif as xx','a.id_alternatif','=','xx.id')
+				->join('tb_debitur as b','xx.id_debitur','=','b.id')
 				->join('tb_sub_kriteria as c','a.jaminan','=','c.id')
 				->join('tb_sub_kriteria as d','a.jumlah_pinjaman','=','d.id')
 				->join('tb_sub_kriteria as e','a.pekerjaan','=','e.id')
@@ -39,6 +55,7 @@ class Pinjaman_m extends Model
 				->join('tb_sub_kriteria as h','a.riwayat_meminjam','=','h.id')
 				->join('tb_sub_kriteria as i','a.jangka_waktu','=','i.id')
 				->select(
+					'xx.kode_alternatif',
 					'a.id',
 					'a.id_pinjaman',
 					'a.tanggal_pinjaman',
@@ -65,7 +82,8 @@ class Pinjaman_m extends Model
 	function get_one($id)
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_debitur as b','a.id_debitur','=','b.id')
+				->join('tb_alternatif as xx','a.id_alternatif','=','xx.id')
+				->join('tb_debitur as b','xx.id_debitur','=','b.id')
 				->select('a.*','b.nama_debitur','b.alamat_debitur','b.telepon')
 				->where("a.{$this->index_key}", $id);
 				
@@ -75,7 +93,8 @@ class Pinjaman_m extends Model
 	function get_by( $where )
 	{
 		$query = DB::table("{$this->table} as a")
-				->join('tb_nasabah as b','a.id_nasabah','=','b.id')
+				->join('tb_alternatif as xx','a.id_alternatif','=','xx.id')
+				->join('tb_debitur as b','xx.id_debitur','=','b.id')
 				->select('a.*','b.nama_nasabah','b.alamat_nasabah','b.telepon')
 				->where($where);
 				

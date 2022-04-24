@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.5  (64 bit)
-MySQL - 10.4.11-MariaDB : Database - u1657744_spk_kredit_koperasi_kopcingkwa
+MySQL - 10.4.11-MariaDB : Database - spk_kredit_koperasi_kopcingkwa
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.11-MariaDB : Database - u1657744_spk_kredit_koperasi_kopcingkwa
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`u1657744_spk_kredit_koperasi_kopcingkwa` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`spk_kredit_koperasi_kopcingkwa` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `u1657744_spk_kredit_koperasi_kopcingkwa`;
+USE `spk_kredit_koperasi_kopcingkwa`;
 
 /*Table structure for table `tb_alternatif` */
 
@@ -22,13 +22,16 @@ DROP TABLE IF EXISTS `tb_alternatif`;
 
 CREATE TABLE `tb_alternatif` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_hasil` int(11) DEFAULT NULL,
-  `nama_alternatif` varchar(100) DEFAULT NULL,
-  `bobot_alternatif` int(11) DEFAULT NULL,
+  `kode_alternatif` varchar(10) DEFAULT NULL,
+  `id_debitur` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_alternatif` */
+
+insert  into `tb_alternatif`(`id`,`kode_alternatif`,`id_debitur`) values 
+(1,'A1',1),
+(2,'A2',2);
 
 /*Table structure for table `tb_debitur` */
 
@@ -44,12 +47,13 @@ CREATE TABLE `tb_debitur` (
   `jenis_kelamin` varchar(20) DEFAULT NULL,
   `pekerjaan` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_debitur` */
 
 insert  into `tb_debitur`(`id`,`id_debitur`,`nama_debitur`,`alamat_debitur`,`telepon`,`tanggal_lahir`,`jenis_kelamin`,`pekerjaan`) values 
-(1,'DB00001','I Nyoman Madra','Gianyar','081999897333','2000-01-13','L','Swasta');
+(1,'DB00001','I Nyoman Madra','Gianyar','081999897333','2000-01-13','L','Swasta'),
+(2,'DB00002','Ni Wayan Sukarini','Bedulu, Gianyar','081999897123','1998-01-20','P','PNS');
 
 /*Table structure for table `tb_hasil` */
 
@@ -57,6 +61,14 @@ DROP TABLE IF EXISTS `tb_hasil`;
 
 CREATE TABLE `tb_hasil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `C1` varchar(20) DEFAULT NULL,
+  `C2` varchar(20) DEFAULT NULL,
+  `C3` varchar(20) DEFAULT NULL,
+  `C4` varchar(20) DEFAULT NULL,
+  `C5` varchar(20) DEFAULT NULL,
+  `C6` varchar(20) DEFAULT NULL,
+  `C7` varchar(20) DEFAULT NULL,
+  `hasil_akhir` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
@@ -114,7 +126,7 @@ DROP TABLE IF EXISTS `tb_pinjaman`;
 CREATE TABLE `tb_pinjaman` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_pinjaman` varchar(20) DEFAULT NULL,
-  `id_debitur` int(11) DEFAULT NULL,
+  `id_alternatif` int(11) DEFAULT NULL,
   `tanggal_pinjaman` date DEFAULT NULL,
   `jaminan` varchar(100) DEFAULT NULL,
   `jumlah_pinjaman` varchar(100) DEFAULT NULL,
@@ -123,13 +135,15 @@ CREATE TABLE `tb_pinjaman` (
   `pendapatan_perbulan` varchar(100) DEFAULT NULL,
   `riwayat_meminjam` varchar(100) DEFAULT NULL,
   `jangka_waktu` varchar(100) DEFAULT NULL,
+  `status_proses` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_pinjaman` */
 
-insert  into `tb_pinjaman`(`id`,`id_pinjaman`,`id_debitur`,`tanggal_pinjaman`,`jaminan`,`jumlah_pinjaman`,`pekerjaan`,`jenis_pinjaman`,`pendapatan_perbulan`,`riwayat_meminjam`,`jangka_waktu`) values 
-(1,'PNJ000001',1,'2022-04-14','9','2','21','24','14','19','5');
+insert  into `tb_pinjaman`(`id`,`id_pinjaman`,`id_alternatif`,`tanggal_pinjaman`,`jaminan`,`jumlah_pinjaman`,`pekerjaan`,`jenis_pinjaman`,`pendapatan_perbulan`,`riwayat_meminjam`,`jangka_waktu`,`status_proses`) values 
+(1,'PNJ000001',1,'2022-04-14','9','2','21','24','14','19','5',NULL),
+(2,'PNJ000002',2,'2022-04-15','10','4','21','24','15','18','7',NULL);
 
 /*Table structure for table `tb_sub_kriteria` */
 
