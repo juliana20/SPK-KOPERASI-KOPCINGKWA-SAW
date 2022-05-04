@@ -33,6 +33,26 @@ insert  into `tb_alternatif`(`id`,`kode_alternatif`,`id_debitur`) values
 (1,'A1',1),
 (2,'A2',2);
 
+/*Table structure for table `tb_bobot_kriteria` */
+
+DROP TABLE IF EXISTS `tb_bobot_kriteria`;
+
+CREATE TABLE `tb_bobot_kriteria` (
+  `key` varchar(100) DEFAULT NULL,
+  `value` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `tb_bobot_kriteria` */
+
+insert  into `tb_bobot_kriteria`(`key`,`value`) values 
+('c1','0.19'),
+('c2','0.17'),
+('c3','0.16'),
+('c4','0.14'),
+('c5','0.10'),
+('c6','0.13'),
+('c7','0.11');
+
 /*Table structure for table `tb_debitur` */
 
 DROP TABLE IF EXISTS `tb_debitur`;
@@ -52,8 +72,8 @@ CREATE TABLE `tb_debitur` (
 /*Data for the table `tb_debitur` */
 
 insert  into `tb_debitur`(`id`,`id_debitur`,`nama_debitur`,`alamat_debitur`,`telepon`,`tanggal_lahir`,`jenis_kelamin`,`pekerjaan`) values 
-(1,'DB00001','I Nyoman Madra','Gianyar','081999897333','2000-01-13','L','Swasta'),
-(2,'DB00002','Ni Wayan Sukarini','Bedulu, Gianyar','081999897123','1998-01-20','P','PNS');
+(1,'DB00001','Komang Ayu Laksmi','Gianyar','081999897333','2000-01-13','L','Swasta'),
+(2,'DB00002','Nengah Suantra','Bedulu, Gianyar','081999897123','1998-01-20','P','PNS');
 
 /*Table structure for table `tb_hasil` */
 
@@ -61,18 +81,42 @@ DROP TABLE IF EXISTS `tb_hasil`;
 
 CREATE TABLE `tb_hasil` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `C1` varchar(20) DEFAULT NULL,
-  `C2` varchar(20) DEFAULT NULL,
-  `C3` varchar(20) DEFAULT NULL,
-  `C4` varchar(20) DEFAULT NULL,
-  `C5` varchar(20) DEFAULT NULL,
-  `C6` varchar(20) DEFAULT NULL,
-  `C7` varchar(20) DEFAULT NULL,
+  `id_pinjaman` varchar(20) DEFAULT NULL,
+  `alternatif` varchar(20) DEFAULT NULL,
+  `c1` varchar(20) DEFAULT NULL,
+  `c2` varchar(20) DEFAULT NULL,
+  `c3` varchar(20) DEFAULT NULL,
+  `c4` varchar(20) DEFAULT NULL,
+  `c5` varchar(20) DEFAULT NULL,
+  `c6` varchar(20) DEFAULT NULL,
+  `c7` varchar(20) DEFAULT NULL,
   `hasil_akhir` varchar(20) DEFAULT NULL,
+  `keputusan` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_hasil` */
+
+/*Table structure for table `tb_hasil_normalisasi` */
+
+DROP TABLE IF EXISTS `tb_hasil_normalisasi`;
+
+CREATE TABLE `tb_hasil_normalisasi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_pinjaman` varchar(20) DEFAULT NULL,
+  `alternatif` varchar(10) DEFAULT NULL,
+  `c1` varchar(20) DEFAULT NULL,
+  `c2` varchar(20) DEFAULT NULL,
+  `c3` varchar(20) DEFAULT NULL,
+  `c4` varchar(20) DEFAULT NULL,
+  `c5` varchar(20) DEFAULT NULL,
+  `c6` varchar(20) DEFAULT NULL,
+  `c7` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `tb_hasil_normalisasi` */
 
 /*Table structure for table `tb_kriteria` */
 
@@ -112,12 +156,13 @@ CREATE TABLE `tb_pengguna` (
   `telepon` varchar(15) DEFAULT NULL,
   `alamat` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_pengguna` */
 
 insert  into `tb_pengguna`(`id`,`id_pengguna`,`nama`,`username`,`password`,`jabatan`,`jenis_kelamin`,`telepon`,`alamat`) values 
-(1,'U001','I Nyoman Antara','admin','$2y$10$NQDDRFAV0dG7gfCZROtq8OXNhGdvZN7hsl25Xs96n3cl2s39djK2.','Admin','L','081999897555','Gianyar');
+(1,'U001','I Nyoman Antara','admin','$2y$10$NQDDRFAV0dG7gfCZROtq8OXNhGdvZN7hsl25Xs96n3cl2s39djK2.','Admin','L','081999897555','Gianyar'),
+(2,'U002','Wayan Sueca','ketua','$2y$10$MAD6CIaVyfTG2kvivAiSQej9Kejrck/O0PTaxiZZ32WiHNPQHOhAa','Ketua','L','081999897123','Tabanan');
 
 /*Table structure for table `tb_pinjaman` */
 
@@ -135,15 +180,15 @@ CREATE TABLE `tb_pinjaman` (
   `pendapatan_perbulan` varchar(100) DEFAULT NULL,
   `riwayat_meminjam` varchar(100) DEFAULT NULL,
   `jangka_waktu` varchar(100) DEFAULT NULL,
-  `status_proses` tinyint(1) DEFAULT NULL,
+  `sudah_proses` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_pinjaman` */
 
-insert  into `tb_pinjaman`(`id`,`id_pinjaman`,`id_alternatif`,`tanggal_pinjaman`,`jaminan`,`jumlah_pinjaman`,`pekerjaan`,`jenis_pinjaman`,`pendapatan_perbulan`,`riwayat_meminjam`,`jangka_waktu`,`status_proses`) values 
-(1,'PNJ000001',1,'2022-04-14','9','2','21','24','14','19','5',NULL),
-(2,'PNJ000002',2,'2022-04-15','10','4','21','24','15','18','7',NULL);
+insert  into `tb_pinjaman`(`id`,`id_pinjaman`,`id_alternatif`,`tanggal_pinjaman`,`jaminan`,`jumlah_pinjaman`,`pekerjaan`,`jenis_pinjaman`,`pendapatan_perbulan`,`riwayat_meminjam`,`jangka_waktu`,`sudah_proses`) values 
+(1,'PNJ000001',1,'2022-04-14','10','2','21','25','14','20','5',0),
+(2,'PNJ000002',2,'2022-04-15','10','3','23','24','14','18','8',0);
 
 /*Table structure for table `tb_sub_kriteria` */
 

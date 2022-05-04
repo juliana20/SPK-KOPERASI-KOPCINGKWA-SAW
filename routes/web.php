@@ -77,9 +77,14 @@ Route::group(['middleware' => ['admin']], function () {
 	Route::prefix('proses-spk')->group(function() {
 		Route::get('/', 'ProsesSpkController@index');
 		Route::match(array('GET', 'POST'),'/datatables','ProsesSpkController@datatables_collection');
-		Route::match(array('GET', 'POST'),'/create','ProsesSpkController@create');
-		Route::match(array('GET', 'POST'),'/edit/{id}','ProsesSpkController@edit');
-		Route::match(array('GET', 'POST'),'/view/{id}','ProsesSpkController@view');
+		Route::match(array('GET', 'POST'),'/proses-normalisasi','ProsesSpkController@proses_normalisasi');
+		Route::match(array('GET', 'POST'),'/normalisasi','ProsesSpkController@normalisasi');
+		Route::match(array('GET', 'POST'),'/datatables-normalisasi','ProsesSpkController@datatables_collection_normalisasi');
+		Route::match(array('GET', 'POST'),'/proses-perhitungan-akhir','ProsesSpkController@proses_perhitungan_akhir');
+		Route::match(array('GET', 'POST'),'/perhitungan-akhir','ProsesSpkController@perhitungan_akhir');
+		Route::match(array('GET', 'POST'),'/datatables-perhitungan-akhir','ProsesSpkController@datatables_collection_perhitungan_akhir');
+		Route::match(array('GET', 'POST'),'/perangkingan','ProsesSpkController@perangkingan');
+		Route::match(array('GET', 'POST'),'/reset-hasil','ProsesSpkController@reset_hasil');
 	});
 	#DASHBOARD
 	Route::prefix('dashboard')->group(function() {
@@ -93,32 +98,11 @@ Route::group(['middleware' => ['admin']], function () {
 	});
 	#LAPORAN
 	Route::prefix('laporan')->group(function() {
-		Route::get('/pembayaran','Laporan@pembayaran');
-		Route::post('/pembayaran/print','Laporan@print_pembayaran');
+		Route::get('/pinjaman','Laporan@pinjaman');
+		Route::post('/pinjaman/print','Laporan@print_pinjaman');
 
-		Route::get('/rekapitulasi','Laporan@rekapitulasi');
-		Route::post('/rekapitulasi/print','Laporan@print_rekapitulasi');
-
-		Route::get('/tunggakan','Laporan@tunggakan');
-		Route::post('/tunggakan/print','Laporan@print_tunggakan');
-		
-		Route::get('/rkas','Laporan@rkas');
-		Route::post('/rkas/print','Laporan@print_rkas');
-
-		Route::get('/pengeluaran','Laporan@pengeluaran');
-		Route::post('/pengeluaran/print','Laporan@print_pengeluaran');
-
-		Route::get('/lpj','Laporan@lpj');
-		Route::post('/lpj/print','Laporan@print_lpj');
-
-		Route::get('/arus-kas','Laporan@arus_kas');
-		Route::post('/arus-kas/print','Laporan@print_arus_kas');
-
-		Route::get('/perubahan-modal','Laporan@perubahan_modal');
-		Route::post('/perubahan-modal/print','Laporan@print_perubahan_modal');
-
-		Route::get('/neraca','Laporan@neraca');
-		Route::post('/neraca/print','Laporan@print_neraca');
+		Route::get('/hasil-perhitungan','Laporan@hasil_perhitungan');
+		Route::post('/hasil-perhitungam/print','Laporan@print_hasil_perhitungan');
 	});
 
 });

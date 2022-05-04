@@ -45,7 +45,8 @@ class Proses_spk_m extends Model
 					'i.bobot as C5',
 					'f.bobot as C6',
 					'g.bobot as C7'
-				);
+				)
+				->where(['a.sudah_proses' => 0]);
 				
 		return $query->get();
     }

@@ -145,7 +145,7 @@
     $(".spinner").css("display", "");
 
     var post_pengajuan = {
-          'id_debitur'    : $("#id_debitur").val(),
+          'id_alternatif'    : $("#id_alternatif").val(),
           'tanggal_pinjaman' : $("#tanggal_pinjaman").val(),
           'jaminan' : $("#jaminan").val(),
           'jumlah_pinjaman' : $("#jumlah_pinjaman").val(),

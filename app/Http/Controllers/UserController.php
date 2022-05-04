@@ -13,8 +13,8 @@ class UserController extends Controller
 {
     protected $jabatan = [
         ['id' => 'Admin', 'desc' => 'Admin'],
-        ['id' => 'Ketua Koperasi', 'desc' => 'Ketua Koperasi'],
-        ['id' => 'Debitur', 'desc' => 'Debitur'],
+        ['id' => 'Ketua', 'desc' => 'Ketua Koperasi'],
+        // ['id' => 'Debitur', 'desc' => 'Debitur'],
     ];
 
     protected $jenis_kelamin = [

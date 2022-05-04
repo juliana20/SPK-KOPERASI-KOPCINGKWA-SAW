@@ -16,7 +16,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-          {{-- <li class="{{ Request::is('dashboard') ? 'active':null}}"><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li> --}}
+          <li class="{{ Request::is('dashboard') ? 'active':null}}"><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
           <li class="{{ Request::is('user') ? 'active':null}}"><a href="{{ url('user') }}"><i class="fa fa-user-plus"></i> <span>Data Admin</span></a></li>
           <li class="{{ Request::is('debitur') ? 'active':null}}"><a href="{{ url('debitur') }}"><i class="fa fa-users" aria-hidden="true"></i> <span>Data Debitur</span></a></li>
           <li class="treeview {{ Request::is('kriteria') ? 'active':null}} {{ Request::is('sub-kriteria') ? 'active':null}}">
@@ -34,13 +34,20 @@
           </li>
           <li class="{{ Request::is('alternatif') ? 'active':null}}"><a href="{{ url('alternatif') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Alternatif</span></a></li>
           <li class="{{ Request::is('pinjaman') ? 'active':null}}"><a href="{{ url('pinjaman') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Data Pinjaman</span></a></li>
-          <li class="{{ Request::is('proses-spk') ? 'active':null}}"><a href="{{ url('proses-spk') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Proses SPK</span></a></li>
-           {{-- <li class="{{ Request::is('jurnal') ? 'active':null}}"><a href="{{ url('jurnal') }}"><i class="fa fa-book" aria-hidden="true"></i> <span>Jurnal</span></a></li> --}}
-          <?php /* <li class="treeview {{ Request::is('laporan/pembayaran') ? 'active':null}} {{ Request::is('laporan/rekapitulasi') ? 'active':null}} 
-            {{ Request::is('laporan/rkas') ? 'active':null}} {{ Request::is('laporan/tunggakan') ? 'active':null}} 
-            {{ Request::is('laporan/pengeluaran') ? 'active':null}} {{ Request::is('laporan/lpj') ? 'active':null}} 
-            {{ Request::is('laporan/perubahan-modal') ? 'active':null}}
-            {{ Request::is('laporan/neraca') ? 'active':null}}">
+          <li class="treeview {{ Request::is('proses-spk') ? 'active':null}} {{ Request::is('proses-spk/perhitungan-akhir') ? 'active':null}} {{ Request::is('proses-spk/perangkingan') ? 'active':null}}">
+            <a href="#">
+              <i class="fa fa-handshake-o" aria-hidden="true"></i>
+              <span>Proses Hitung SPK</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{ Request::is('proses-spk') ? 'active':null}}"><a href="{{ url('proses-spk') }}"><i class="fa fa-circle-o-notch"></i> Proses Perhitungan</a></li>
+              <li class="{{ Request::is('proses-spk/perhitungan-akhir') ? 'active':null}}"><a href="{{ url('proses-spk/perhitungan-akhir') }}"><i class="fa fa-circle-o-notch"></i> Hasil Perhitungan</a></li>
+            </ul>
+          </li>
+          <li class="treeview {{ Request::is('laporan/pinjaman') ? 'active':null}} {{ Request::is('laporan/hasil-perhitungan') ? 'active':null}}">
             <a href="#">
               <i class="fa fa-clipboard" aria-hidden="true"></i>
               <span>Laporan</span>
@@ -49,17 +56,35 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="{{ Request::is('laporan/pembayaran') ? 'active':null}}"><a href="{{ url('laporan/pembayaran') }}"><i class="fa fa-file-text-o"></i> Pembayaran</a></li>
-              <li class="{{ Request::is('laporan/rekapitulasi') ? 'active':null}}"><a href="{{ url('laporan/rekapitulasi') }}"><i class="fa fa-file-text-o"></i> Rekapitulasi</a></li>
-              <li class="{{ Request::is('laporan/tunggakan') ? 'active':null}}"><a href="{{ url('laporan/tunggakan') }}"><i class="fa fa-file-text-o"></i> Tunggakan</a></li>
-              <li class="{{ Request::is('laporan/rkas') ? 'active':null}}"><a href="{{ url('laporan/rkas') }}"><i class="fa fa-file-text-o"></i> RKAS</a></li> --}}
-              <li class="{{ Request::is('laporan/pengeluaran') ? 'active':null}}"><a href="{{ url('laporan/pengeluaran') }}"><i class="fa fa-file-text-o"></i> Pengeluaran Kas</a></li>
-              <li class="{{ Request::is('laporan/lpj') ? 'active':null}}"><a href="{{ url('laporan/lpj') }}"><i class="fa fa-file-text-o"></i> Pertanggung Jawaban</a></li>
-              <li class="{{ Request::is('laporan/arus-kas') ? 'active':null}}"><a href="{{ url('laporan/arus-kas') }}"><i class="fa fa-file-text-o"></i> Arus Kas</a></li>
-              <li class="{{ Request::is('laporan/perubahan-modal') ? 'active':null}}"><a href="{{ url('laporan/perubahan-modal') }}"><i class="fa fa-file-text-o"></i> Perubahan Anggaran</a></li>
-              <li class="{{ Request::is('laporan/neraca') ? 'active':null}}"><a href="{{ url('laporan/neraca') }}"><i class="fa fa-file-text-o"></i> Neraca</a></li> --}}
+              <li class="{{ Request::is('laporan/pinjaman') ? 'active':null}}"><a href="{{ url('laporan/pinjaman') }}"><i class="fa fa-file-text-o"></i> Pinjaman</a></li>
+              <li class="{{ Request::is('laporan/hasil-perhitungan') ? 'active':null}}"><a href="{{ url('laporan/hasil-perhitungan') }}"><i class="fa fa-file-text-o"></i> Hasil Alternatif Keputusan</a></li>
             </ul>
-          </li> */ ?>
+          </li>
+          {{-- <li class="header">SETTING</li>
+          <li class=""><a href="javascript:void(0)" id="reset_hasil"><i class="fa fa-sliders" aria-hidden="true"></i> <span>Reset Hasil Perhitungan</span></a></li> --}}
         </ul>
     </section>
   </aside>
+
+  <script>
+    $('#reset_hasil').on('click',function(e) {
+    e.preventDefault();
+    if(!confirm("Data hasil perhitungan sebelumnya akan dihapus, apakah anda yakin?")) {
+      return false;
+    }
+
+    $.get("{{ url('proses-spk/reset-hasil') }}", function(response, status, xhr) {
+        if( response.status == "error"){
+            $.alert_warning(response.message);
+                return false
+            }
+            $.alert_success(response.message);
+            setTimeout(function(){
+              location.reload();   
+            }, 500);  
+        }).catch(error => {
+              $.alert_error(error);
+              return false
+        });
+  });
+  </script>
