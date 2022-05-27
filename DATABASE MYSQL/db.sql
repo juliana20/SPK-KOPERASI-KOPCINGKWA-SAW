@@ -1,6 +1,6 @@
 /*
 SQLyog Community v13.1.5  (64 bit)
-MySQL - 10.4.11-MariaDB : Database - spk_kredit_koperasi_kopcingkwa
+MySQL - 10.4.11-MariaDB : Database - u1657744_spk_kredit_koperasi_kopcingkwa
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 10.4.11-MariaDB : Database - spk_kredit_koperasi_kopcingkwa
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`spk_kredit_koperasi_kopcingkwa` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`u1657744_spk_kredit_koperasi_kopcingkwa` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `spk_kredit_koperasi_kopcingkwa`;
+USE `u1657744_spk_kredit_koperasi_kopcingkwa`;
 
 /*Table structure for table `tb_alternatif` */
 
@@ -66,14 +66,15 @@ CREATE TABLE `tb_debitur` (
   `tanggal_lahir` date DEFAULT NULL,
   `jenis_kelamin` varchar(20) DEFAULT NULL,
   `pekerjaan` varchar(20) DEFAULT NULL,
+  `id_pengguna` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_debitur` */
 
-insert  into `tb_debitur`(`id`,`id_debitur`,`nama_debitur`,`alamat_debitur`,`telepon`,`tanggal_lahir`,`jenis_kelamin`,`pekerjaan`) values 
-(1,'DB00001','Komang Ayu Laksmi','Gianyar','081999897333','2000-01-13','L','Swasta'),
-(2,'DB00002','Nengah Suantra','Bedulu, Gianyar','081999897123','1998-01-20','P','PNS');
+insert  into `tb_debitur`(`id`,`id_debitur`,`nama_debitur`,`alamat_debitur`,`telepon`,`tanggal_lahir`,`jenis_kelamin`,`pekerjaan`,`id_pengguna`) values 
+(1,'DB00001','Komang Ayu Laksmi','Gianyar','081999897333','2000-01-13','L','Swasta',3),
+(2,'DB00002','Nengah Suantra','Bedulu, Gianyar','081999897123','1998-01-20','P','PNS',4);
 
 /*Table structure for table `tb_hasil` */
 
@@ -156,13 +157,15 @@ CREATE TABLE `tb_pengguna` (
   `telepon` varchar(15) DEFAULT NULL,
   `alamat` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_pengguna` */
 
 insert  into `tb_pengguna`(`id`,`id_pengguna`,`nama`,`username`,`password`,`jabatan`,`jenis_kelamin`,`telepon`,`alamat`) values 
 (1,'U001','I Nyoman Antara','admin','$2y$10$NQDDRFAV0dG7gfCZROtq8OXNhGdvZN7hsl25Xs96n3cl2s39djK2.','Admin','L','081999897555','Gianyar'),
-(2,'U002','Wayan Sueca','ketua','$2y$10$MAD6CIaVyfTG2kvivAiSQej9Kejrck/O0PTaxiZZ32WiHNPQHOhAa','Ketua','L','081999897123','Tabanan');
+(2,'U002','Wayan Sueca','ketua','$2y$10$MAD6CIaVyfTG2kvivAiSQej9Kejrck/O0PTaxiZZ32WiHNPQHOhAa','Ketua','L','081999897123','Tabanan'),
+(3,'U003','Komang Ayu Laksmi','laksmi','$2y$10$UxEt6JlaBuX2v/4lVbApYOreVNJ5qdVJdrd6vtLF1CIsg4qhucyT.','Debitur','L','081999897333','Gianyar'),
+(4,'U004','Nengah Suantra','suantra','$2y$10$uAYmQHGal3cKPMJiHt2QPu4qZ1cffP9hJVNut3eXjHn22EUunSrSC','Debitur','P','081999897123','Bedulu, Gianyar');
 
 /*Table structure for table `tb_pinjaman` */
 

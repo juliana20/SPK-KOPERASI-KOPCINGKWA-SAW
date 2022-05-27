@@ -25,6 +25,7 @@
   <hr>
     <h5 align="center">
       <u>{{ @$title }}</u> <br>
+      Periode : {{ date('d-m-Y', strtotime($params->date_start)) ." s/d ". date('d-m-Y', strtotime($params->date_end)) }}
     </h5>
     <div class="container">
         <table width="100%">
@@ -34,7 +35,7 @@
               <th>Alternatif</th>
               <th>Nama Debitur</th>
               <th>Hasil Akhir</th>
-              <th>Kesimpulan</th>
+              {{-- <th>Kesimpulan</th> --}}
             </tr>
           </thead>
           <tbody>
@@ -46,7 +47,7 @@
                   <td>{{ $row->alternatif }}</td>
                   <td>{{ $row->nama_debitur }}</td>
                   <td>{{ $row->hasil_akhir }}</td>
-                  <td>{{ $row->keputusan }}</td>
+                  {{-- <td>{{ $row->keputusan }}</td> --}}
                 </tr>
               @endforeach
             @else
@@ -58,6 +59,21 @@
           <tfoot>
            
           </tfoot>
+        </table>
+        <br>
+        <table style="border: 0px!important">
+          <tr>
+            <td width="50%" style="border: 0px!important">
+              <p style="margin-bottom: 70px"></p>
+  
+              <p><i></i></p>
+            </td>
+            <td width="50%" align="right" style="border: 0px!important">
+              <p style="margin-bottom: 70px">Bangli, {{ date('d M Y') }}</p>
+  
+              <p><i>I Wayan Darma</i></p>
+            </td>
+          </tr>
         </table>
       </div>
     <p style="z-index: 100;position: absolute;bottom: 0px;float: right;font-size: 11px;"><i>Tanggal Cetak : <?php echo date('d-m-Y') ?></i></p>

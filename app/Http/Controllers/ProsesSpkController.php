@@ -318,7 +318,6 @@ class ProsesSpkController extends Controller
             'code'      => 200,
         ];
         return Response::json($response);
-
     }
 
     public function datatables_collection()

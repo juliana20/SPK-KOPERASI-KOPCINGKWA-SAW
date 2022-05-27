@@ -48,6 +48,18 @@
     </div>
   </div>
   <div class="form-group">
+    <label class="col-lg-3 control-label">Username *</label>
+    <div class="col-lg-9">
+      <input type="text" name="u[username]" id="username" class="form-control" placeholder="Username" value="{{ @$item->username }}" required="">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-lg-3 control-label">Password *</label>
+    <div class="col-lg-9">
+      <input type="password" name="u[password]" id="password" class="form-control" placeholder="Password" value="{{ @$item->password }}" required="">
+    </div>
+  </div>
+  <div class="form-group">
       <div class="col-lg-offset-3 col-lg-9">
         <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('global.label_close') }}</button>
         <button id="submit_form" type="submit" class="btn btn-success btn-save">@if($is_edit) {{ __('global.label_update') }} @else {{ __('global.label_save') }} @endif <i class="fas fa-spinner fa-spin spinner" style="display: none"></i></button> 

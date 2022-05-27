@@ -26,7 +26,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ Request::is('laporan/pinjaman') ? 'active':null}}"><a href="{{ url('laporan/pinjaman') }}"><i class="fa fa-file-text-o"></i> Pinjaman</a></li>
+            {{-- <li class="{{ Request::is('laporan/pinjaman') ? 'active':null}}"><a href="{{ url('laporan/pinjaman') }}"><i class="fa fa-file-text-o"></i> Pinjaman</a></li> --}}
             <li class="{{ Request::is('laporan/hasil-perhitungan') ? 'active':null}}"><a href="{{ url('laporan/hasil-perhitungan') }}"><i class="fa fa-file-text-o"></i> Hasil Alternatif Keputusan</a></li>
           </ul>
         </li>

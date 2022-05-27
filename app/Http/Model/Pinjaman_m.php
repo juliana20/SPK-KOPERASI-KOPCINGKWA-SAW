@@ -31,6 +31,7 @@ class Pinjaman_m extends Model
 	{
 		$query = DB::table('tb_alternatif as a')
 				->join('tb_debitur as b','a.id_debitur','=','b.id')
+				->where('a.aktif', 1)
 				->select(
 					'a.*',
 					'b.id_debitur as kode_debitur',
@@ -54,6 +55,7 @@ class Pinjaman_m extends Model
 				->join('tb_sub_kriteria as g','a.pendapatan_perbulan','=','g.id')
 				->join('tb_sub_kriteria as h','a.riwayat_meminjam','=','h.id')
 				->join('tb_sub_kriteria as i','a.jangka_waktu','=','i.id')
+				->where('a.aktif', 1)
 				->select(
 					'xx.kode_alternatif',
 					'a.id',

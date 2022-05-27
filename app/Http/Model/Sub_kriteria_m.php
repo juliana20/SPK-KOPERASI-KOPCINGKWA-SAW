@@ -31,6 +31,7 @@ class Sub_kriteria_m extends Model
     {
 		$query = DB::table("{$this->table} as a")
 				->join('tb_kriteria as b','a.kode_kriteria','=','b.kode_kriteria')
+				->where('a.aktif', 1)
 				->select('a.*','b.nama_kriteria')
 				->get();
         return $query;

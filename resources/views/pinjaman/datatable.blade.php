@@ -28,8 +28,8 @@
                   <th class="no-sort">No</th>
                   <th>ID Pinjaman</th>
                   <th>Tanggal Pinjaman</th>
-                  <th>Kode</th>
-                  <th>Nama Debitur</th>
+                  <th>Kode Alternatif</th>
+                  {{-- <th>Nama Debitur</th> --}}
                   <th>Jaminan</th>
                   <th>Jumlah Pinjaman</th>
                   <th>Pekerjaan</th>
@@ -101,12 +101,12 @@
                                   return val
                                 }
                           },
-                          { 
-                              data: "nama_debitur", 
-                              render: function ( val, type, row ){
-                                  return val
-                                }
-                          },
+                          // { 
+                          //     data: "nama_debitur", 
+                          //     render: function ( val, type, row ){
+                          //         return val
+                          //       }
+                          // },
                           { 
                                 data: "jaminan", 
                                 render: function ( val, type, row ){
@@ -156,6 +156,7 @@
                                 render: function ( val, type, row ){
                                     var buttons = '<div class="btn-group" role="group">';
                                       buttons += '<a class=\"btn btn-info btn-xs modalEdit\"><i class=\"fa fa-pencil\"></i> {{ __('global.label_edit') }}</a>';
+                                      buttons += '<a class=\"btn btn-danger btn-xs modalHapus\"><i class=\"fa fa-trash\"></i> Hapus</a>';
                                       buttons += "</div>";
                                     return buttons
                                 }
@@ -172,6 +173,26 @@
                                 title : "<?= @$headerModalEdit ?>",
                             }
                             ajax_modal.show(_prop);											
+                        })
+
+                        
+                        $( row ).on( "click", ".modalHapus",  function(e){
+                            e.preventDefault();
+                            if( confirm( "Apakah anda yakin menghapus data ini?" ) ){
+                              $.get("{{ url('pinjaman/delete') }}/" + data.id, function(response, status, xhr) {
+                              if( response.status == "error"){
+                                  $.alert_warning(response.message);
+                                      return false
+                                  }
+                                  $.alert_success(response.message);
+                                      setTimeout(function(){
+                                        location.reload();   
+                                      }, 500);  
+                              }).catch(error => {
+                                    $.alert_error(error);
+                                    return false
+                              });
+                            }										
                         })
 
                       }

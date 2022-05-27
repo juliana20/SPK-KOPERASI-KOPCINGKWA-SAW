@@ -72,6 +72,20 @@
            
           </tfoot>
         </table>
+        <table style="border: 0px!important">
+          <tr>
+            <td width="50%" style="border: 0px!important">
+              <p style="margin-bottom: 70px"></p>
+  
+              <p><i></i></p>
+            </td>
+            <td width="50%" align="right" style="border: 0px!important">
+              <p style="margin-bottom: 70px">Bangli, {{ date('d M Y') }}</p>
+  
+              <p><i>I Wayan Darma</i></p>
+            </td>
+          </tr>
+        </table>
       </div>
     <p style="z-index: 100;position: absolute;bottom: 0px;float: right;font-size: 11px;"><i>Tanggal Cetak : <?php echo date('d-m-Y') ?></i></p>
 </body>

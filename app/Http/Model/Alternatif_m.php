@@ -19,7 +19,7 @@ class Alternatif_m extends Model
         $this->rules = [
             'insert' => [
                 'kode_alternatif' => "required|unique:$this->table",
-				'id_debitur' => "required|unique:$this->table",
+				'id_debitur' => "required",
             ],
 			'update' => [
 				'id_debitur' => 'required',
@@ -31,6 +31,7 @@ class Alternatif_m extends Model
     {
 		$query = DB::table("{$this->table} as a")
 				->join('tb_debitur as b','a.id_debitur','=','b.id')
+				->where('a.aktif', 1)
 				->select(
 					'a.*',
 					'b.nama_debitur',

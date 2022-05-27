@@ -133,18 +133,18 @@ class AlternatifController extends Controller
            //request dari view
            $header = $request->input('f');
            //validasi dari model
-           $validator = Validator::make( $header, [
-                'id_debitur' => [Rule::unique('tb_alternatif')->ignore($get_data->id_debitur, 'id_debitur')],
-                'kode_alternatif' => [Rule::unique('tb_alternatif')->ignore($get_data->kode_alternatif, 'kode_alternatif')],
-            ]);
-           if ($validator->fails()) {
-               $response = [
-                   'message' => $validator->errors()->first(),
-                   'status' => 'error',
-                   'code' => 500,
-               ];
-               return Response::json($response);
-           }
+        //    $validator = Validator::make( $header, [
+        //         'id_debitur' => [Rule::unique('tb_alternatif')->ignore($get_data->id_debitur, 'id_debitur')],
+        //         'kode_alternatif' => [Rule::unique('tb_alternatif')->ignore($get_data->kode_alternatif, 'kode_alternatif')],
+        //     ]);
+        //    if ($validator->fails()) {
+        //        $response = [
+        //            'message' => $validator->errors()->first(),
+        //            'status' => 'error',
+        //            'code' => 500,
+        //        ];
+        //        return Response::json($response);
+        //    }
 
             //insert data
             DB::beginTransaction();
@@ -184,6 +184,32 @@ class AlternatifController extends Controller
         ];
 
         return view('alternatif.view', $data);
+    }
+
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            #cek user sudah digunakan
+            $this->model->update_data(['aktif' => 0], $id);
+            DB::commit();
+
+            $response = [
+                "message" => 'Data alternatif berhasil dihapus',
+                'status' => 'success',
+                'code' => 200,
+            ];
+       
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                "message" => $e->getMessage(),
+                'status' => 'error',
+                'code' => 500,
+                
+            ];
+        }
+        return Response::json($response); 
     }
 
     public function datatables_collection()

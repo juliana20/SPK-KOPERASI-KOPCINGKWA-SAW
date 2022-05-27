@@ -13,9 +13,9 @@
       <div class="box-header with-border">
         <h3 class="box-title">{{ @$title }}</h3>
         <div class="box-tools pull-right">
-            <div class="btn-group">
+            {{-- <div class="btn-group">
               <button class="btn btn-success btn-sm" id="modalCreate"><i class="fa fa-plus" aria-hidden="true"></i> {{ __('global.label_create') }}</button>
-            </div>
+            </div> --}}
 
           </button>
         </div>

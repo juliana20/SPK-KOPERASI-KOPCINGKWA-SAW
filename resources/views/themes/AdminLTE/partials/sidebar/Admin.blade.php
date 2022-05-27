@@ -45,6 +45,7 @@
             <ul class="treeview-menu">
               <li class="{{ Request::is('proses-spk') ? 'active':null}}"><a href="{{ url('proses-spk') }}"><i class="fa fa-circle-o-notch"></i> Proses Perhitungan</a></li>
               <li class="{{ Request::is('proses-spk/perhitungan-akhir') ? 'active':null}}"><a href="{{ url('proses-spk/perhitungan-akhir') }}"><i class="fa fa-circle-o-notch"></i> Hasil Perhitungan</a></li>
+              <li class=""><a href="javascript:void(0)" id="reset_hasil"><i class="fa fa-circle-o-notch" aria-hidden="true"></i> <span>Reset Hasil Perhitungan</span></a></li>
             </ul>
           </li>
           <li class="treeview {{ Request::is('laporan/pinjaman') ? 'active':null}} {{ Request::is('laporan/hasil-perhitungan') ? 'active':null}}">
@@ -60,8 +61,6 @@
               <li class="{{ Request::is('laporan/hasil-perhitungan') ? 'active':null}}"><a href="{{ url('laporan/hasil-perhitungan') }}"><i class="fa fa-file-text-o"></i> Hasil Alternatif Keputusan</a></li>
             </ul>
           </li>
-          {{-- <li class="header">SETTING</li>
-          <li class=""><a href="javascript:void(0)" id="reset_hasil"><i class="fa fa-sliders" aria-hidden="true"></i> <span>Reset Hasil Perhitungan</span></a></li> --}}
         </ul>
     </section>
   </aside>

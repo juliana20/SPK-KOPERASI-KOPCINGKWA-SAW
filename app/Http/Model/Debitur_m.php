@@ -29,7 +29,11 @@ class Debitur_m extends Model
 
     function get_all()
     {
-        return self::get();
+		$query = DB::table('tb_debitur as a')
+				->join('tb_pengguna as b','a.id_pengguna','=','b.id')
+				->where('a.aktif', 1)
+				->select('a.*', 'b.username','b.password');
+        return $query->get();
     }
 
     function insert_data($data)
@@ -39,7 +43,12 @@ class Debitur_m extends Model
 
 	function get_one($id)
 	{
-		return self::where($this->index_key, $id)->first();
+		$query = DB::table('tb_debitur as a')
+				->join('tb_pengguna as b','a.id_pengguna','=','b.id')
+				->where("a.{$this->index_key}", $id)
+				->select('a.*', 'b.username','b.password');
+
+		return $query->first();
 	}
 
 	function get_by( $where )

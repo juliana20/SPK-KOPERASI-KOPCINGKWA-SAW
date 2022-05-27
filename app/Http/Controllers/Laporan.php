@@ -77,6 +77,7 @@ class Laporan extends Controller
 
     public function hasil_perhitungan()
     {
+
              $item = [
                  'date_start' => Carbon::now()->startOfMonth()->toDateString(),
                  'date_end'   => Carbon::now()->endOfMonth()->toDateString()
@@ -94,10 +95,12 @@ class Laporan extends Controller
  
      public function print_hasil_perhitungan(Request $request)
      {
+         $params = $request->input('f');
          $query = DB::table('tb_hasil as a')
                     ->join('tb_pinjaman as b','a.id_pinjaman','=','b.id_pinjaman')
                     ->join('tb_alternatif as c','b.id_alternatif','=','c.id')
                     ->join('tb_debitur as d','c.id_debitur','=','d.id')
+                    ->whereBetween('a.created_at',[$params['date_start'],$params['date_end']])
                     ->select(
                         'a.*',
                         'b.tanggal_pinjaman',
@@ -107,12 +110,13 @@ class Laporan extends Controller
                     ->get();
                 
          $data = [
+             'params'       => (object) $params,
              'item'         => $query,
              'title'        => 'LAPORAN HASIL PERHITUNGAN SPK',
          ];
  
-         $pdf = PDF::loadView('laporan.print.cetak_hasil_perhitungan', $data)->setPaper('a4', 'landscape');
-         return $pdf->stream('laporan_hasil_perhitungan.pdf'); 
+         $pdf = PDF::loadView('laporan.print.cetak_hasil_perhitungan', $data, $params)->setPaper('a4', 'landscape');
+         return $pdf->stream($params['date_start'].$params['date_end'].'laporan_hasil_perhitungan.pdf'); 
      }
   
 }

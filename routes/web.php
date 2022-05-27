@@ -30,6 +30,7 @@ Route::group(['middleware' => ['admin']], function () {
 		Route::match(array('GET', 'POST'),'/create','UserController@create');
 		Route::match(array('GET', 'POST'),'/edit/{id}','UserController@edit');
 		Route::match(array('GET', 'POST'),'/view/{id}','UserController@view');
+		Route::match(array('GET', 'POST'),'/delete/{id}','UserController@delete');
 	});
 	#DEBITUR
 	Route::prefix('debitur')->group(function() {
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['admin']], function () {
 		Route::match(array('GET', 'POST'),'/create','DebiturController@create');
 		Route::match(array('GET', 'POST'),'/edit/{id}','DebiturController@edit');
 		Route::match(array('GET', 'POST'),'/view/{id}','DebiturController@view');
+		Route::match(array('GET', 'POST'),'/delete/{id}','DebiturController@delete');
 	});
 	#KRITERIA
 	Route::prefix('kriteria')->group(function() {
@@ -54,6 +56,7 @@ Route::group(['middleware' => ['admin']], function () {
 		Route::match(array('GET', 'POST'),'/create','SubKriteriaController@create');
 		Route::match(array('GET', 'POST'),'/edit/{id}','SubKriteriaController@edit');
 		Route::match(array('GET', 'POST'),'/view/{id}','SubKriteriaController@view');
+		Route::match(array('GET', 'POST'),'/delete/{id}','SubKriteriaController@delete');
 	});
 	#ALTERNATIF
 	Route::prefix('alternatif')->group(function() {
@@ -62,6 +65,7 @@ Route::group(['middleware' => ['admin']], function () {
 		Route::match(array('GET', 'POST'),'/create','AlternatifController@create');
 		Route::match(array('GET', 'POST'),'/edit/{id}','AlternatifController@edit');
 		Route::match(array('GET', 'POST'),'/view/{id}','AlternatifController@view');
+		Route::match(array('GET', 'POST'),'/delete/{id}','AlternatifController@delete');
 	});
 	#PINJAMAN
 	Route::prefix('pinjaman')->group(function() {
@@ -71,6 +75,7 @@ Route::group(['middleware' => ['admin']], function () {
 		Route::match(array('GET', 'POST'),'/edit/{id}','PinjamanController@edit');
 		Route::match(array('GET', 'POST'),'/view/{id}','PinjamanController@view');
 		Route::match(array('GET', 'POST'),'/lookup_alternatif','PinjamanController@datatables_lookup_alternatif');
+		Route::match(array('GET', 'POST'),'/delete/{id}','PinjamanController@delete');
 		
 	});
 	#PROSES SPK

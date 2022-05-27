@@ -60,7 +60,7 @@
     $(".spinner").css("display", "");
 
     var post = {
-          'id_pinjaman'    : $("#id_pinjaman").val(),
+          'id_debitur'    : $("#id_debitur").val(),
           'kode_alternatif' : $("#kode_alternatif").val()
         }
      data_post = {

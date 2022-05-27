@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Model\Debitur_m;
+use App\Http\Model\User_m;
 use Validator;
 use DataTables;
 use Illuminate\Validation\Rule;
@@ -20,6 +21,7 @@ class DebiturController extends Controller
     public function __construct()
     {
         $this->model = New Debitur_m;
+        $this->model_user = New User_m;
         $this->nameroutes = 'debitur';
     }
     /**
@@ -59,6 +61,16 @@ class DebiturController extends Controller
         if($request->post())
         {
             $header = $request->input('f');
+            $user = $request->input('u');
+
+            $user['id_pengguna'] = $this->model_user->gen_code('U');
+            $user['jabatan'] = 'Debitur';
+            $user['nama'] = $header['nama_debitur'];
+            $user['telepon'] = $header['telepon'];
+            $user['jenis_kelamin'] = $header['jenis_kelamin'];
+            $user['alamat'] = $header['alamat_debitur'];
+            $user['password'] = bcrypt($user['password']);
+
             $validator = Validator::make( $header, $this->model->rules['insert']);
             if ($validator->fails()) {
                 $response = [
@@ -71,6 +83,8 @@ class DebiturController extends Controller
 
             DB::beginTransaction();
             try {
+                $id_pengguna = User_m::insertGetId($user);
+                $header['id_pengguna'] = $id_pengguna;
                 $this->model->insert_data($header);
                 DB::commit();
     
@@ -132,7 +146,7 @@ class DebiturController extends Controller
         {
             //request dari view
             $header = $request->input('f');
-
+            $user = $request->input('u');
            //validasi dari model
            $validator = Validator::make( $header, [
                 'id_debitur' => [Rule::unique('tb_debitur')->ignore($get_data->id_debitur, 'id_debitur')],
@@ -146,11 +160,33 @@ class DebiturController extends Controller
                return Response::json($response);
            }
 
+            //cek password berubah/tidak
+            if($user['password'] != $get_data->password)
+            {
+                $tb_user['password'] = bcrypt($user['password']);
+            }
+
+            $tb_user['username'] = $user['username'];
+            $tb_user['nama'] = $header['nama_debitur'];
+            $tb_user['alamat'] = $header['alamat_debitur'];
+            $tb_user['telepon'] = $header['telepon'];
+            $tb_user['jenis_kelamin'] = $header['jenis_kelamin'];
             //insert data
             DB::beginTransaction();
             try {
 
-                $this->model->update_data($header, $id);
+                if(empty($get_data->id_pengguna) || $get_data->id_pengguna == "")
+                {
+                    $tb_user['id_pengguna'] = $this->model_user->gen_code('U');
+                    $tb_user['jabatan'] = 'Debitur';
+
+                    $id_user = User_m::insertGetId($tb_user);
+                    $header['id_pengguna'] = $id_user;
+                    $this->model->update_data($header, $id);
+                }else{
+                    $this->model->update_data($header, $id);
+                    $this->model_user->update_data($tb_user, $get_data->id_pengguna);
+                }
 
                 DB::commit();
 
@@ -185,6 +221,32 @@ class DebiturController extends Controller
         ];
 
         return view('debitur.view', $data);
+    }
+
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+            #cek user sudah digunakan
+            $this->model->update_data(['aktif' => 0], $id);
+            DB::commit();
+
+            $response = [
+                "message" => 'Data debitur berhasil dihapus',
+                'status' => 'success',
+                'code' => 200,
+            ];
+       
+        } catch (\Exception $e) {
+            DB::rollback();
+            $response = [
+                "message" => $e->getMessage(),
+                'status' => 'error',
+                'code' => 500,
+                
+            ];
+        }
+        return Response::json($response); 
     }
 
     public function datatables_collection()
