@@ -134,7 +134,7 @@ class SubKriteriaController extends Controller
             $header = $request->input('f');
            //validasi dari model
            $validator = Validator::make( $header,[
-                'id_kriteria' => ['required'],
+                'kode_kriteria' => ['required'],
                 'nama_sub_kriteria' => ['required'],
            ]);
            if ($validator->fails()) {
