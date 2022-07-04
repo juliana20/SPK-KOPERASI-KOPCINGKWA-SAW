@@ -95,13 +95,10 @@ class Alternatif_m extends Model
 
 	function gen_code( $format )
 	{
-		$max_number = self::all()->max($this->index_key2);
-		$noUrut = (int) substr($max_number, 1, 1);
-		$noUrut++;
-		$code = $format;
-		$no_generate = $code . sprintf("%01s", $noUrut);
+		$query = self::max('id')->first();
+		$no_generate = $format . sprintf(substr($query->kode_alternatif,1) +1);
 
-		return (string) $no_generate;
+		return $no_generate;
 	}
 
 }
