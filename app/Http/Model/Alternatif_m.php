@@ -95,9 +95,9 @@ class Alternatif_m extends Model
 
 	function gen_code( $format )
 	{
-		$query = self::max('id')->first();
-		$no_generate = $format . sprintf(substr($query->kode_alternatif,1) +1);
-
+		$query = self::count();
+		$number = $query+1;
+		$no_generate = $format . (string) $number;
 		return $no_generate;
 	}
 
